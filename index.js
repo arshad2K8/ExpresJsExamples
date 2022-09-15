@@ -18,6 +18,9 @@ app.use(bodyParser.urlencoded({ extended: false }));
 const path = require('path');
 const srcPath = path.join(__dirname, 'public');
 const loginData = require('./public/login.json');
+const User = require('./public/domain/user.js');
+// import {User} from './domain/user.js';
+const Network = require('./public/domain/network.js');
 
 app.set('view engine', 'ejs');
 
@@ -55,6 +58,7 @@ app.post('/auth', function(req, res) {
     console.log('userNamePassObj ', userNamePassObj);
 	if (username && password) {
 		
+        /*
         const options = {
             method: "POST",
             body: JSON.stringify(userNamePassObj),
@@ -82,23 +86,28 @@ app.post('/auth', function(req, res) {
             res.render(`${srcPath}/views/error`, {
                 errorMsg: `unable to authenticate ${error.message}`
             });
-        });
+        }); */
 
+
+      // if succesful authentication 
+        req.session.loggedin = true;
+        req.session.username = username;
+        res.redirect('/networks');
 	} else {
 		res.send('Please enter Username and Password!');
 		res.end();
 	}
 });
 
-  // Route to Login Page
+  // Route to networks Page
 app.get('/networks', (req, res) => {
     if (req.session.loggedin) {
 
+        const network1 = new Network('Network1', 'type1');
+        const network2 = new Network('Network2', 'type2');
         const availableNetworks = [
-            {name: 'Network1', type: 'Type 1' },
-            {name: 'Network2', type: 'Type 2' },
+            network1, network2
         ];
-
 		res.render(`${srcPath}/views/networks`, {
             networks: availableNetworks
         });
@@ -110,6 +119,25 @@ app.get('/networks', (req, res) => {
 	}
 	res.end();
       
+});
+
+
+// Route to persist users Network Selections
+app.post('/submitForm', function(req, res) {
+	let requestorName = req.body.requestorName;
+	let name = req.body.name;
+    let locations = req.body.locations;
+
+    const networksData = {
+        requestorName: requestorName,
+        name: name,
+        locations: locations
+
+    };
+
+    // copy your code to save it to a file
+    res.send('Succesfully persisted data');
+    res.end();
 });
 
 
