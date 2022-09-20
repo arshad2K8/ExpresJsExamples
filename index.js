@@ -1,4 +1,5 @@
 const express = require('express');
+require("dotenv").config();
 const app = express();
 const session = require('express-session');
 app.use(session({
@@ -7,12 +8,13 @@ app.use(session({
 	saveUninitialized: true
 }));
 
-const cors = require('cors');
+
 const bodyParser = require('body-parser'); // middleware
 app.use(bodyParser.urlencoded({ extended: false }));
 
 app.set('view engine', 'ejs');
 
+const cors = require('cors');
 app.use(cors({
     origin: "*",
 }));

@@ -2,8 +2,9 @@
 const express = require('express');
 const { networksView } = require('../controllers/networksController');
 const router = express.Router();
+const verifyToken = require('../middleware/authorization');
 
-router.get('/', networksView);
+router.get('/', verifyToken, networksView);
 
 
 // at the end

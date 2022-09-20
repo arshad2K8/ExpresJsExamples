@@ -1,5 +1,7 @@
 
 const path = require('path');
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
 const srcPath = path.join(__dirname, '../public');
 const axios = require('axios');
 const fetch = (...args) =>
@@ -8,6 +10,7 @@ const fetch = (...args) =>
 
 
 // authenticateUser
+const LOGIN_URL = 'https://iaas-pp.schwab.com/api/auth/login';
 const authenticateUser = (req, res) => {
 	let username = req.body.username;
 	let password = req.body.password;
@@ -38,6 +41,8 @@ const authenticateUser = (req, res) => {
             // if succesful authentication 
             req.session.loggedin = true;
 			req.session.username = username;
+            const token = '';
+            res.cookie('token', token, { httpOnly: true });
 				// Redirect to home page
 			res.redirect('/networks');
         })
@@ -52,6 +57,11 @@ const authenticateUser = (req, res) => {
       // if succesful authentication 
         req.session.loggedin = true;
         req.session.username = username;
+
+        // we need to send the token back looks like as a cookie is a better option
+        const token = 'SomeToken';
+        // res.cookie('token', token, { httpOnly: true });
+        req.session.token = token;
         res.redirect('/networks');
 	} else {
 		res.send('Please enter Username and Password!');
