@@ -20,19 +20,7 @@ compute.tiers.push(tier1);
 compute.tiers.push(tier2);
 
 const vComputeView = (req, res) => {
-    if (req.session.loggedin) {
-
-		res.render(`${srcPath}/views/compute`, {
-            compute: compute
-        });
-	} else {
-		// Not logged in
-        res.render(`${srcPath}/views/error`, {
-            errorMsg: 'Please login to view this page!'
-        });
-	}
-	res.end();
-      
+    res.send(compute);
 };
 
 module.exports =  {
