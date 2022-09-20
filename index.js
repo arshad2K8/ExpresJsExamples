@@ -25,9 +25,11 @@ app.use(cors({
 const loginRoutes = require('./routes/login');
 const authRoutes = require('./routes/auth');
 const networksRoutes = require('./routes/networks');
+const vComputeRoutes = require('./routes/vComputeRoutes');
 
 app.use('/auth', authRoutes);
 app.use('/networks', networksRoutes);
+app.use('/compute', vComputeRoutes);
 app.use('/', loginRoutes);
 
 //////////////////////////////////////////////////////////////
