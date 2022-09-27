@@ -1,4 +1,4 @@
-
+ 
 const path = require('path');
 const srcPath = path.join(__dirname, '../public');
 const Compute = require('../models/compute.js');
@@ -20,7 +20,12 @@ compute.tiers.push(tier1);
 compute.tiers.push(tier2);
 
 const vComputeView = (req, res) => {
-    res.send(compute);
+
+    res.render(`${srcPath}/views/compute`, {
+        compute: compute
+    });
+	res.end();
+      
 };
 
 module.exports =  {

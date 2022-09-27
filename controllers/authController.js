@@ -42,6 +42,7 @@ const authenticateUser = (req, res) => {
             req.session.loggedin = true;
 			req.session.username = username;
             const token = '';
+            req.session.token = token;
             res.cookie('token', token, { httpOnly: true });
 				// Redirect to home page
 			res.redirect('/networks');
@@ -67,6 +68,20 @@ const authenticateUser = (req, res) => {
 		res.send('Please enter Username and Password!');
 		res.end();
 	}
+};
+
+const verifyRequestor = (req, res) => {
+    let userid = req.body.userid;
+    let appId = req.body.appId; // where does this come far
+
+    // make an AD call 
+    // verify user and membershipts to specific appID
+
+};
+
+
+const verifyUserFromADAndCheckMembershipsByAppID = (user, appID) => {
+
 };
 
 
