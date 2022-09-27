@@ -24,6 +24,7 @@ const vComputeView = (req, res) => {
     res.render(`${srcPath}/views/compute`, {
         compute: compute
     });
+    
 	res.end();
       
 };

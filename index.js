@@ -26,10 +26,14 @@ const loginRoutes = require('./routes/login');
 const authRoutes = require('./routes/auth');
 const networksRoutes = require('./routes/networks');
 const vComputeRoutes = require('./routes/vComputeRoutes');
+const placementRoutes = require('./routes/placementRoutes');
+
 
 app.use('/auth', authRoutes);
 app.use('/networks', networksRoutes);
 app.use('/compute', vComputeRoutes);
+app.use('/placement', placementRoutes);
+
 app.use('/', loginRoutes);
 
 //////////////////////////////////////////////////////////////
